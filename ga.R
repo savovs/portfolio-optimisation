@@ -1,6 +1,9 @@
 library(PortfolioAnalytics)
 library(GA)
 library(quantmod)
+library(timeSeries)
+library(sm)
+library(corrplot)
 
 # Some stock symbols inspired by Vanguard Fund
 # https://www.vanguardinvestor.co.uk/investments/vanguard-global-balanced-gbp-accumulation-shares?intcmpgn=blendedglobal_globalbalancedfund_fund_link
@@ -26,10 +29,10 @@ covarianceMatrix <- cov(trainReturns)
 volatility <- sqrt(diag(covarianceMatrix))
 
 # Explore the Data
-plot(volatility, averageReturns, type = "n", panel.first = grid(),
+plot(volatility, meanReturns, type = "n", panel.first = grid(),
      xlab = "Std. dev. monthly returns", ylab = "Average monthly returns")
 
-text(volatility, averageReturns, names(averageReturns), col = .colorwheelPalette(10), font = 2)
+text(volatility, meanReturns, names(meanReturns), col = .colorwheelPalette(10), font = 2)
 
 corrplot(cor(returns), method = "color", title = "Correlation of Monthly Returns",  mar = c(0,0,1,0))
 
